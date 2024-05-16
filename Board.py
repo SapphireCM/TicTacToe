@@ -5,11 +5,16 @@ class Board:
                       [' ', ' ', ' '],
                       [' ', ' ', ' ']]
         self.validMove = True
+        self.playerOne = " "
+        self.playerTwo = " "
+        self.won = " "
     # resets the board
     def resetBoard(self):
         self.board = [[' ', ' ', ' '],
                       [' ', ' ', ' '],
                       [' ', ' ', ' ']]
+        self.won = " "
+        self.validMove = True
     # prints the board
     def printBoard(self):
 
@@ -36,33 +41,53 @@ class Board:
         print("BL - Bottom Left", "BM - Bottom Middle", "BR - Bottom Right", sep="\n")
 
     def move(self, move, symbol):
-        if move == "TL":
+        if move == "TL" and self.board[0][0] == ' ':
             self.board[0][0] = symbol
             self.validMove = True
-        elif move == "TM":
+        elif move == "TM" and self.board[0][1] == ' ':
             self.board[0][1] = symbol
             self.validMove = True
-        elif move == "TR":
+        elif move == "TR" and self.board[0][2] == ' ':
             self.board[0][2] = symbol
             self.validMove = True
-        elif move == "LM":
+        elif move == "LM" and self.board[1][0] == ' ':
             self.board[1][0] = symbol
             self.validMove = True
-        elif move == "M":
+        elif move == "M" and self.board[1][1] == ' ':
             self.board[1][1] = symbol
             self.validMove = True
-        elif move == "RM":
+        elif move == "RM" and self.board[1][2] == ' ':
             self.board[1][2] = symbol
             self.validMove = True
-        elif move == "BL":
+        elif move == "BL" and self.board[2][0] == ' ':
             self.board[2][0] = symbol
             self.validMove = True
-        elif move == "BM":
+        elif move == "BM" and self.board[2][1] == ' ':
             self.board[2][1] = symbol
             self.validMove = True
-        elif move == "BR":
+        elif move == "BR" and self.board[2][2] == ' ':
             self.board[2][2] = symbol
             self.validMove = True
         else:
             print("Invalid input")
             self.validMove = False
+
+    def winner(self):
+        if self.board[0][0] == self.board[0][1] == self.board[0][2]:
+            self.won = self.board[0][0]
+        elif self.board[1][0] == self.board[1][1] == self.board[1][2] == self.playerOne:
+            self.won = self.board[1][0]
+        elif self.board[2][0] == self.board[2][1] == self.board[2][2]:
+            self.won = self.board[2][0]
+        elif self.board[0][0] == self.board[1][0] == self.board[2][0]:
+            self.won = self.board[0][0]
+        elif self.board[0][1] == self.board[1][1] == self.board[2][1]:
+            self.won = self.board[0][1]
+        elif self.board[0][2] == self.board[1][2] == self.board[2][2]:
+            self.won = self.board[0][2]
+        elif self.board[0][0] == self.board[1][1] == self.board[2][2]:
+            self.won = self.board[0][0]
+        elif self.board[2][0] == self.board[1][1] == self.board[0][2]:
+            return self.board[2][0]
+        else:
+            self.won = " "

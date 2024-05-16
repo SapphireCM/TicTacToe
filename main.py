@@ -7,24 +7,23 @@ import Board
 
 gameOver = False
 
-
 # MAIN
 
 gameBoard = Board.Board()
 
-playerOne = input("Enter player one's symbol: ")
-while len(playerOne) > 1:
+gameBoard.playerOne = input("Enter player one's symbol: ")
+while len(gameBoard.playerOne) > 1:
     print("Invalid symbol, please try again.\n")
-    playerOne = input("Enter player one's symbol: ")
+    gameBoard.playerOne = input("Enter player one's symbol: ")
 
 # will keep track of which player is next
-currentTurn = playerOne
+currentTurn = gameBoard.playerOne
 
-playerTwo = input("Enter player two's symbol: ")
+gameBoard.playerTwo = input("Enter player two's symbol: ")
 
-while len(playerTwo) > 1 or playerOne == playerTwo:
+while len(gameBoard.playerTwo) > 1 or gameBoard.playerOne == gameBoard.playerTwo:
     print("Invalid symbol, please try again.\n")
-    playerTwo = input("Enter player two's symbol: ")
+    gameBoard.playerTwo = input("Enter player two's symbol: ")
 
 help = input("Would you like to know the inputs to play? (Y/N): ")
 
@@ -46,15 +45,24 @@ while not gameOver:
         move = input("Enter your choice: ")
         gameBoard.move(move, currentTurn)
 
-
     # switch currentTurn once the other player enters a valid move
-    if currentTurn == playerOne:
-        currentTurn = playerTwo
+    if currentTurn == gameBoard.playerOne:
+        currentTurn = gameBoard.playerTwo
     else:
-        currentTurn = playerOne
+        currentTurn = gameBoard.playerOne
+
+    gameBoard.winner()
+    if gameBoard.won != " ":
+        gameOver = True
 
     if gameOver:
-        print("\nNew game?(Y/N): ", end= "")
+
+        if gameBoard.won == gameBoard.playerOne:
+            print("Player " + gameBoard.playerOne + " Won!")
+        else:
+            print("Player " + gameBoard.playerTwo + " Won!")
+
+        print("\nNew game?(Y/N): ", end="")
         answer = input()
 
         if answer == "Y":
@@ -62,5 +70,3 @@ while not gameOver:
             gameOver = False
         else:
             exit(0)
-
-
